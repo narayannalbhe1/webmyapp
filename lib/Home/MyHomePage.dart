@@ -13,6 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
 
+  int selectedIndex = 0;
   // Report options
   List<Map<String, String>> reportsList = [
     {
@@ -151,45 +152,61 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 10),
 
                 // Vertical Report List
-                SizedBox(
-                  child: ListView.builder(
-                    itemCount: reportsList.length,
-                    shrinkWrap: true,  // <-- Important for nested ListView
-                    physics: NeverScrollableScrollPhysics(),  // <-- Let parent handle scrolling
-                    itemBuilder: (context, index) {
-                      var item = reportsList[index];
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+              SizedBox(
+                child: ListView.builder(
+                  itemCount: reportsList.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    var item = reportsList[index];
+                    bool isSelected = index == selectedIndex;
+
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(12)),
-                            border: Border.all(color: Colors.blue, width: 0.5),
+                            border: Border.all(
+                              color: isSelected ? Colors.blue : Colors.transparent,
+                              width: isSelected ? 1.5 : 0.5,
+                            ),
+                            color:  Colors.black26,
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
                                   item["title"]!,
                                   style: TextStyle(
-                                    color: Colors.white,fontSize: 14
+                                    color: Colors.white,
+                                    fontSize: 14,
                                   ),
                                 ),
                                 SizedBox(height: 5),
                                 Text(
                                   item["subtitle"]!,
-                                  style: TextStyle(color: Colors.grey[400], fontSize: 12),
+                                  style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
+              ),
 
                 SizedBox(height: 05),
                 Divider(thickness: 0.8, color: Colors.grey),
@@ -343,3 +360,6 @@ class DottedBorderPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
+
+
