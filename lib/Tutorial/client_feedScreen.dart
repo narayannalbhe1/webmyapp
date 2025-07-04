@@ -3,22 +3,21 @@ import 'dart:ui';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+import 'package:webmyapp/Tutorial/GlobalTourKey.dart';
 
-class TutorialCoachDemo extends StatefulWidget {
-  const TutorialCoachDemo({super.key});
+class client_feedScreen extends StatefulWidget {
+  const client_feedScreen({super.key});
 
   @override
-  State<TutorialCoachDemo> createState() => _TutorialCoachDemoState();
+  State<client_feedScreen> createState() => _client_feedScreenState();
 }
 
-class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
+class _client_feedScreenState extends State<client_feedScreen> {
+
   late TutorialCoachMark tutorialCoachMark;
   bool showingTutorial = false;
   List<TargetFocus> targets = [];
-  final GlobalKey _appBarKey = GlobalKey();
-  final GlobalKey _welcomeTextKey = GlobalKey();
-  final GlobalKey _actionButtonKey = GlobalKey();
-  final GlobalKey _cardKey = GlobalKey();
+
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -50,26 +49,26 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
 
     final possibleTargets = [
       {
-        'key': _appBarKey,
+        'key': appBarKey,
         'identify': 'App Bar',
         'description':
             'This is the app bar with the title and navigation options.',
         'align': ContentAlign.bottom,
       },
       {
-        'key': _welcomeTextKey,
+        'key': welcomeTextKey,
         'identify': 'Welcome Message',
         'description': 'This text welcomes you to the app.',
         'align': ContentAlign.bottom,
       },
       {
-        'key': _actionButtonKey,
+        'key': actionButtonKey,
         'identify': 'Action Button',
         'description': 'Click this button to perform an action.',
         'align': ContentAlign.top,
       },
       {
-        'key': _cardKey,
+        'key': cardKey,
         'identify': 'Info Card',
         'description': 'This card displays important information.',
         'align': ContentAlign.bottom,
@@ -236,7 +235,7 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        key: _appBarKey,
+        key: appBarKey,
         title: const Text("Static Tutorial Coach Demo"),
         backgroundColor: Colors.blue.shade700,
         elevation: 2,
@@ -265,7 +264,7 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
                       Icon(Icons.star, color: Colors.blue.shade700, size: 28),
                       const SizedBox(width: 8),
                       Text(
-                        key: _welcomeTextKey,
+                        key: welcomeTextKey,
                         "Welcome to the App!",
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Colors.blue.shade900,
@@ -285,7 +284,7 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
                     duration: const Duration(milliseconds: 200),
                     transform: Matrix4.identity()..scale(1.0),
                     child: ElevatedButton(
-                      key: _actionButtonKey,
+                      key: actionButtonKey,
                       onPressed: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -331,7 +330,7 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
                   ),
                   const SizedBox(height: 24),
                   InfoCardWidget(
-                    key: _cardKey,
+                    key: cardKey,
                     title: "Info Card",
                     description: "This card contains important information about your app.",
                   ),
@@ -370,6 +369,7 @@ class _TutorialCoachDemoState extends State<TutorialCoachDemo> {
               ),
             ),
           ),
+
         ],
       ),
     );
